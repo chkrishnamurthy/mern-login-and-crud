@@ -4,16 +4,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/post')
+const authRoutes = require('./routes/auth')
+
 require("dotenv").config();
 
 const app = express();
-//db
-// mongoose
-// .connect(process.env.DATABASE,{})
-// .then(()=>console.log("DB Connected"))
-// .catch((err)=>console.log(err));
-// const url = "mongodb+srv://mern:krishna123@mern-crud-with-login.pu4s8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-// console.log(process.env.DATABASE);
+
 mongoose.connect(process.env.DATABASE, { useNewUrlParser: true,useUnifiedTopology: true }).then(() => console.log("MongoDB connected")) .catch((err) => console.log(err));
 
 
@@ -29,7 +25,9 @@ app.use(bodyParser.json());
 
 //route middleware
 
-app.use('/api',postRoutes)
+app.use('/api',postRoutes);
+app.use('/api',authRoutes);
+
 
 const port = process.env.PORT || 8000; 
 
